@@ -1,0 +1,47 @@
+/* Custom CSS for enhanced accessibility */
+.text-xxl {
+    font-size: 2.5rem;
+}
+
+.text-xxxl {
+    font-size: 3rem;
+}
+
+.tab-active {
+    border-bottom: 4px solid #3b82f6;
+    font-weight: bold;
+}
+
+.task-completed {
+    text-decoration: line-through;
+    color: #9ca3af;
+}
+
+.weather-icon {
+    font-size: 2.5rem;
+}
+
+/* Larger touch targets for better accessibility */
+.btn-senior {
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+}
+
+/* High contrast mode */
+.high-contrast {
+    --tw-bg-opacity: 1;
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.high-contrast .bg-white {
+    background-color: rgb(0 0 0 / var(--tw-bg-opacity));
+}
+
+.high-contrast .text-gray-800 {
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.high-contrast .border-gray-200 {
+    border-color: rgb(255 255 255 / var(--tw-border-opacity));
+}
