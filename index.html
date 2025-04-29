@@ -12,19 +12,891 @@
     <div id="app" class="min-h-screen">
         <!-- Header with accessibility options -->
         <header class="bg-blue-600 text-white p-4">
-            <!-- ... (same header content) ... -->
+            <div class="container mx-auto flex justify-between items-center">
+                <h1 class="text-xxl font-bold">SeniorLife Organizer</h1>
+                <div class="flex space-x-4">
+                    <button id="fontIncrease" class="bg-white text-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-text-height"></i>
+                    </button>
+                    <button id="contrastToggle" class="bg-white text-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-adjust"></i>
+                    </button>
+                    <button id="helpBtn" class="bg-white text-blue-600 rounded-full w-10 h-10 flex items-center justify-center">
+                        <i class="fas fa-question"></i>
+                    </button>
+                </div>
+            </div>
         </header>
 
-        <!-- ... (rest of HTML body content same as original) ... -->
+        <!-- Weather and Time Display -->
+        <div class="bg-blue-500 text-white p-4">
+            <div class="container mx-auto flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="text-center">
+                        <div id="current-time" class="text-xxxl font-bold">12:34 PM</div>
+                        <div id="current-date" class="text-xl">Monday, June 5, 2023</div>
+                    </div>
+                </div>
+                <div id="weather-display" class="flex items-center space-x-4">
+                    <div class="text-center">
+                        <div class="text-2xl font-bold">72°F</div>
+                        <div class="text-lg">Sunny</div>
+                    </div>
+                    <i class="fas fa-sun weather-icon"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="bg-white shadow-md">
+            <div class="container mx-auto flex overflow-x-auto">
+                <button data-tab="home" class="tab-btn flex-1 py-4 px-6 text-xl font-medium text-center border-b-4 border-transparent hover:bg-gray-100 tab-active">
+                    <i class="fas fa-home mr-2"></i> Home
+                </button>
+                <button data-tab="calendar" class="tab-btn flex-1 py-4 px-6 text-xl font-medium text-center border-b-4 border-transparent hover:bg-gray-100">
+                    <i class="fas fa-calendar-alt mr-2"></i> Calendar
+                </button>
+                <button data-tab="tasks" class="tab-btn flex-1 py-4 px-6 text-xl font-medium text-center border-b-4 border-transparent hover:bg-gray-100">
+                    <i class="fas fa-tasks mr-2"></i> Tasks
+                </button>
+                <button data-tab="shopping" class="tab-btn flex-1 py-4 px-6 text-xl font-medium text-center border-b-4 border-transparent hover:bg-gray-100">
+                    <i class="fas fa-shopping-cart mr-2"></i> Shopping
+                </button>
+                <button data-tab="expenses" class="tab-btn flex-1 py-4 px-6 text-xl font-medium text-center border-b-4 border-transparent hover:bg-gray-100">
+                    <i class="fas fa-money-bill-wave mr-2"></i> Expenses
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="container mx-auto p-4">
+            <!-- Home Tab (Default) -->
+            <div id="home-tab" class="tab-content">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <h2 class="text-2xl font-bold mb-4">Welcome Back!</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3">Today's Schedule</h3>
+                            <div id="today-events" class="space-y-3">
+                                <div class="p-3 bg-blue-50 rounded-lg">
+                                    <div class="font-medium">Doctor's Appointment</div>
+                                    <div class="text-sm text-gray-600">10:00 AM - 11:00 AM</div>
+                                </div>
+                                <div class="p-3 bg-blue-50 rounded-lg">
+                                    <div class="font-medium">Lunch with Family</div>
+                                    <div class="text-sm text-gray-600">12:30 PM - 2:00 PM</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3">Today's Tasks</h3>
+                            <div id="today-tasks" class="space-y-3">
+                                <div class="p-3 bg-green-50 rounded-lg flex justify-between items-center">
+                                    <div>
+                                        <div class="font-medium">Take morning medication</div>
+                                        <div class="text-sm text-gray-600">8:00 AM</div>
+                                    </div>
+                                    <button class="text-green-600">
+                                        <i class="fas fa-check-circle text-xl"></i>
+                                    </button>
+                                </div>
+                                <div class="p-3 bg-green-50 rounded-lg flex justify-between items-center">
+                                    <div>
+                                        <div class="font-medium">Water the plants</div>
+                                    </div>
+                                    <button class="text-gray-400">
+                                        <i class="far fa-check-circle text-xl"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-3">Shopping List</h3>
+                        <div id="shopping-preview" class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <div>Milk</div>
+                                <div class="text-sm text-gray-600">1 gallon</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>Bread</div>
+                                <div class="text-sm text-gray-600">1 loaf</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>Apples</div>
+                                <div class="text-sm text-gray-600">5</div>
+                            </div>
+                        </div>
+                        <button class="mt-4 text-blue-600 font-medium">View Full List</button>
+                    </div>
+                    
+                    <div class="bg-white rounded-lg shadow-md p-6">
+                        <h3 class="text-xl font-semibold mb-3">Recent Expenses</h3>
+                        <div id="expenses-preview" class="space-y-2">
+                            <div class="flex justify-between items-center">
+                                <div>Groceries</div>
+                                <div class="font-medium">$45.23</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>Pharmacy</div>
+                                <div class="font-medium">$12.50</div>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div>Dinner Out</div>
+                                <div class="font-medium">$28.75</div>
+                            </div>
+                        </div>
+                        <button class="mt-4 text-blue-600 font-medium">View All Expenses</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calendar Tab -->
+            <div id="calendar-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Calendar</h2>
+                        <div class="flex space-x-2">
+                            <button class="btn-senior bg-blue-600 text-white rounded-lg" onclick="modalToggle('eventModal', true)">
+                                <i class="fas fa-plus mr-2"></i> Add Event
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-4">
+                            <button class="text-blue-600 font-bold text-xl">&lt;</button>
+                            <h3 class="text-xl font-bold">June 2023</h3>
+                            <button class="text-blue-600 font-bold text-xl">&gt;</button>
+                        </div>
+                        
+                        <div class="grid grid-cols-7 gap-1 text-center font-medium mb-2">
+                            <div class="p-2">Sun</div>
+                            <div class="p-2">Mon</div>
+                            <div class="p-2">Tue</div>
+                            <div class="p-2">Wed</div>
+                            <div class="p-2">Thu</div>
+                            <div class="p-2">Fri</div>
+                            <div class="p-2">Sat</div>
+                        </div>
+                        
+                        <div class="grid grid-cols-7 gap-1">
+                            <div class="h-24 p-1 border border-gray-200"></div>
+                            <div class="h-24 p-1 border border-gray-200"></div>
+                            <div class="h-24 p-1 border border-gray-200"></div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">1</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">2</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">3</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">4</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">5</div>
+                                <div class="text-xs bg-blue-100 text-blue-800 rounded p-1 mt-1">Doctor 10am</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">6</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">7</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">8</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">9</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">10</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">11</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">12</div>
+                                <div class="text-xs bg-blue-100 text-blue-800 rounded p-1 mt-1">Birthday Party</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">13</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">14</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">15</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">16</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">17</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">18</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">19</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">20</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">21</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">22</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">23</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">24</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">25</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">26</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">27</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">28</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">29</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200">
+                                <div class="text-right">30</div>
+                            </div>
+                            <div class="h-24 p-1 border border-gray-200"></div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-3">Upcoming Events</h3>
+                        <div class="space-y-3">
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold">Doctor's Appointment</div>
+                                        <div class="text-gray-600">June 5, 10:00 AM - 11:00 AM</div>
+                                        <div class="mt-2">Dr. Smith's Office</div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <div class="font-bold">Birthday Party</div>
+                                        <div class="text-gray-600">June 12, 2:00 PM - 5:00 PM</div>
+                                        <div class="mt-2">Granddaughter's 10th birthday at home</div>
+                                    </div>
+                                    <div class="flex space-x-2">
+                                        <button class="text-blue-600">
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                        <button class="text-red-600">
+                                            <i class="fas fa-trash"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tasks Tab -->
+            <div id="tasks-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Daily Tasks</h2>
+                        <div class="flex space-x-2">
+                            <button class="btn-senior bg-blue-600 text-white rounded-lg">
+                                <i class="fas fa-plus mr-2"></i> Add Task
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-4">
+                            <h3 class="text-xl font-semibold">Today's Tasks</h3>
+                            <span class="ml-2 bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded">5</span>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-green-600 mr-4">
+                                    <i class="fas fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Take morning medication</div>
+                                    <div class="text-sm text-gray-600">8:00 AM</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Water the plants</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Go for a walk</div>
+                                    <div class="text-sm text-gray-600">4:00 PM</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Call daughter</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Take evening medication</div>
+                                    <div class="text-sm text-gray-600">8:00 PM</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <h3 class="text-xl font-semibold">Recurring Tasks</h3>
+                            <span class="ml-2 bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded">3</span>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <div class="flex-1">
+                                    <div class="font-medium">Take out trash</div>
+                                    <div class="text-sm text-gray-600">Every Tuesday</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <div class="flex-1">
+                                    <div class="font-medium">Pay bills</div>
+                                    <div class="text-sm text-gray-600">1st of each month</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <div class="flex-1">
+                                    <div class="font-medium">Clean refrigerator</div>
+                                    <div class="text-sm text-gray-600">Every 2 weeks</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Shopping Tab -->
+            <div id="shopping-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Shopping List</h2>
+                        <div class="flex space-x-2">
+                            <button class="btn-senior bg-blue-600 text-white rounded-lg">
+                                <i class="fas fa-plus mr-2"></i> Add Item
+                            </button>
+                            <button class="btn-senior bg-green-600 text-white rounded-lg">
+                                <i class="fas fa-microphone mr-2"></i> Voice Add
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center mb-4">
+                            <h3 class="text-xl font-semibold">Current List</h3>
+                            <span class="ml-2 bg-blue-100 text-blue-800 text-sm font-medium px-2.5 py-0.5 rounded">7</span>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Milk</div>
+                                    <div class="text-sm text-gray-600">1 gallon</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Bread</div>
+                                    <div class="text-sm text-gray-600">1 loaf</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Apples</div>
+                                    <div class="text-sm text-gray-600">5</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Eggs</div>
+                                    <div class="text-sm text-gray-600">1 dozen</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Chicken breast</div>
+                                    <div class="text-sm text-gray-600">2 lbs</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Toilet paper</div>
+                                    <div class="text-sm text-gray-600">1 pack</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-gray-400 mr-4">
+                                    <i class="far fa-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium">Coffee</div>
+                                    <div class="text-sm text-gray-600">1 can</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="flex items-center mb-4">
+                            <h3 class="text-xl font-semibold">Completed Items</h3>
+                            <span class="ml-2 bg-green-100 text-green-800 text-sm font-medium px-2.5 py-0.5 rounded">2</span>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-green-600 mr-4">
+                                    <i class="fas fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium task-completed">Orange juice</div>
+                                    <div class="text-sm text-gray-600 task-completed">1 carton</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg flex items-center">
+                                <button class="text-green-600 mr-4">
+                                    <i class="fas fa-check-circle text-xl"></i>
+                                </button>
+                                <div class="flex-1">
+                                    <div class="font-medium task-completed">Cereal</div>
+                                    <div class="text-sm text-gray-600 task-completed">1 box</div>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <button class="text-blue-600">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="text-red-600">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Expenses Tab -->
+            <div id="expenses-tab" class="tab-content hidden">
+                <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold">Expense Manager</h2>
+                        <div class="flex space-x-2">
+                            <button class="btn-senior bg-blue-600 text-white rounded-lg">
+                                <i class="fas fa-plus mr-2"></i> Add Expense
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-xl font-semibold">Recent Expenses</h3>
+                            <div class="flex items-center">
+                                <span class="mr-2">Filter:</span>
+                                <select class="bg-gray-50 border border-gray-300 text-gray-900 rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2">
+                                    <option>This Month</option>
+                                    <option>Last Month</option>
+                                    <option>Last 3 Months</option>
+                                    <option>This Year</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="space-y-3">
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold">Groceries</div>
+                                        <div class="text-sm text-gray-600">June 3, 2023</div>
+                                        <div class="text-sm">Supermarket</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-bold text-red-600">$45.23</div>
+                                        <div class="text-sm">Food</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold">Pharmacy</div>
+                                        <div class="text-sm text-gray-600">June 2, 2023</div>
+                                        <div class="text-sm">CVS</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-bold text-red-600">$12.50</div>
+                                        <div class="text-sm">Health</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold">Dinner Out</div>
+                                        <div class="text-sm text-gray-600">June 1, 2023</div>
+                                        <div class="text-sm">Italian Restaurant</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-bold text-red-600">$28.75</div>
+                                        <div class="text-sm">Dining</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold">Electric Bill</div>
+                                        <div class="text-sm text-gray-600">May 31, 2023</div>
+                                        <div class="text-sm">Utility Company</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-bold text-red-600">$65.40</div>
+                                        <div class="text-sm">Utilities</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-4 border border-gray-200 rounded-lg">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold">Haircut</div>
+                                        <div class="text-sm text-gray-600">May 28, 2023</div>
+                                        <div class="text-sm">Barber Shop</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="font-bold text-red-600">$18.00</div>
+                                        <div class="text-sm">Personal Care</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-xl font-semibold mb-4">Monthly Summary</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                            <div class="bg-blue-50 p-4 rounded-lg">
+                                <div class="text-sm text-blue-800">Total Expenses</div>
+                                <div class="text-2xl font-bold">$169.88</div>
+                                <div class="text-sm text-blue-800">June 1-5, 2023</div>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg">
+                                <div class="text-sm text-green-800">Budget Remaining</div>
+                                <div class="text-2xl font-bold">$330.12</div>
+                                <div class="text-sm text-green-800">of $500 monthly budget</div>
+                            </div>
+                            <div class="bg-yellow-50 p-4 rounded-lg">
+                                <div class="text-sm text-yellow-800">Daily Average</div>
+                                <div class="text-2xl font-bold">$33.98</div>
+                                <div class="text-sm text-yellow-800">Projected: $1,019.40</div>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-white border border-gray-200 rounded-lg p-4">
+                            <h4 class="font-semibold mb-3">Expense Categories</h4>
+                            <div class="flex flex-wrap gap-4">
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-blue-600 rounded-full mr-2"></div>
+                                    <span>Food: $73.98</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-green-600 rounded-full mr-2"></div>
+                                    <span>Health: $12.50</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-yellow-600 rounded-full mr-2"></div>
+                                    <span>Dining: $28.75</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-red-600 rounded-full mr-2"></div>
+                                    <span>Utilities: $65.40</span>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="w-4 h-4 bg-purple-600 rounded-full mr-2"></div>
+                                    <span>Personal Care: $18.00</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
 
         <!-- Add Event Modal -->
         <div id="eventModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-            <!-- ... (same modal content) ... -->
+            <div class="bg-white rounded-lg p-6 w-full max-w-md">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">Add New Event</h3>
+                    <button data-modal-close="eventModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <form>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Event Title</label>
+                        <input type="text" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Doctor's Appointment">
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Date</label>
+                            <input type="date" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Time</label>
+                            <input type="time" class="w-full p-3 border border-gray-300 rounded-lg">
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Location</label>
+                        <input type="text" class="w-full p-3 border border-gray-300 rounded-lg" placeholder="Dr. Smith's Office">
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Notes</label>
+                        <textarea class="w-full p-3 border border-gray-300 rounded-lg" rows="3" placeholder="Bring insurance card"></textarea>
+                    </div>
+                    <div class="mb-4">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-blue-600">
+                            <span class="ml-2">Set Reminder</span>
+                        </label>
+                    </div>
+                    <div class="flex justify-end space-x-3">
+                        <button type="button" data-modal-close="eventModal" class="px-4 py-2 border border-gray-300 rounded-lg">Cancel</button>
+                        <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Save Event</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
         <!-- Help Modal -->
         <div id="helpModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
-            <!-- ... (same modal content) ... -->
+            <div class="bg-white rounded-lg p-6 w-full max-w-2xl">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-xl font-bold">Help & Support</h3>
+                    <button data-modal-close="helpModal" class="text-gray-500 hover:text-gray-700">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Getting Started</h4>
+                        <p class="text-gray-700">Welcome to SeniorLife Organizer! This app helps you manage your daily activities, appointments, shopping lists, and expenses all in one place.</p>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Accessibility Features</h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-700">
+                            <li>Use the <strong>text size</strong> button to increase font size</li>
+                            <li>Toggle <strong>high contrast</strong> mode for better visibility</li>
+                            <li>All buttons are large for easy tapping</li>
+                            <li>Clear visual feedback for completed tasks</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h4 class="font-semibold text-lg mb-2">Need More Help?</h4>
+                        <p class="text-gray-700">For additional assistance, please contact our support team at <strong>support@seniorlife.org</strong> or call <strong>1-800-SENIOR-HELP</strong>.</p>
+                    </div>
+                </div>
+                <div class="mt-6 flex justify-end">
+                    <button data-modal-close="helpModal" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Close</button>
+                </div>
+            </div>
         </div>
     </div>
 
